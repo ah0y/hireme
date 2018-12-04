@@ -1,0 +1,64 @@
+
+ <%= if @is_admin do %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Filename</th>
+      <th>Content type</th>
+      <th>Path</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for video <- @videos do %>
+    <tr>
+      <td><%= video.title %></td>
+      <td><%= video.filename %></td>
+      <td><%= video.content_type %></td>
+      <td><%= video.path %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: video_path(@conn, :show, video), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: video_path(@conn, :edit, video), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: video_path(@conn, :delete, video), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+  <% end %>
+
+<div>
+
+<div style="text-align: ">
+<%= search_form(@conn, @rummage, [fields:
+    [
+        title: %{label: "", search_type: "ilike"},
+    ], button_class: "btn hidden",
+]) %>
+
+</div>
+
+
+
+<section class="video-list">
+  <ul class="grid">
+    <%= for video <- @videos do %>
+      <li class="grid-item">
+        <div class="video video-small">
+          <%= link to: video_path(@conn, :show, video.id) do %>
+            <video class="preview" width="200" height="200"  controlsList="nodownload" muted webkitallowfullscreen mozallowfullscreen allowfullscreen poster="">
+                            <source src=<%= video.s3_url %> type="video/mp4">
+                        </video>
+            <h3 class="video__title"><%= video.title %></h3>
+          <% end %>
+          <span class="video__price"><%= format_price(video.price) %></span>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
+

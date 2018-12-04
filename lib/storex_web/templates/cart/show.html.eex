@@ -1,0 +1,47 @@
+<h1>Your cart</h1>
+
+<ul class="cart-items">
+  <%= for item <- @items do %>
+    <li class="cart-item">
+    <div class="cart-item__image ">
+      <video width="80vw" height= "80vh " controlsList="nodownload">
+          <source src=<%= item.video.s3_url %> type="video/mp4">
+        </video>
+        </div>
+
+         <div class="cart-item__title">
+                <span><%= item.video.title %></span>
+              </div>
+
+      <div class="cart-item__units">
+        <div class="value-tag" style="float: right">
+          <h2 class="value-tag__title" >days</h2>
+          <span class="value-tag__content">
+            <div class="step minus">
+              <%= link "-", to: cart_path(@conn, :delete, video_id: item.video_id), method: :delete %>
+            </div>
+            <%= item.quantity %>
+            <div class="step plus">
+              <%= link "+", to: cart_path(@conn, :create, video_id: item.video_id), method: :create %>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="cart-item__price">
+        <div class="value-tag">
+          <h2 class="value-tag__title">price</h2>
+          <span class="value-tag__content">
+            <%= format_price(item.video.price) %>
+          </span>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<div class="value-tag-total">
+  <h2 class="value-tag__title" >total</h2>
+  <span class="value-tag__content"><%= format_price(@total) %></span>
+</div>
+
+<%= link "Checkout", to: checkout_path(@conn, :new), class: "button button-primary" %>

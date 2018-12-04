@@ -1,0 +1,22 @@
+defmodule Storex.Sales.LineItem do
+  use Ecto.Schema
+  import Ecto.Changeset
+  alias Storex.Sales.LineItem
+
+
+  schema "sales_line_items" do
+    belongs_to :cart, Storex.Sales.Cart
+    belongs_to :order, Storex.Sales.Order
+    belongs_to :video, Storex.Media.Video, type: :binary_id
+    field :quantity, :integer
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(%LineItem{} = line_item, attrs) do
+    line_item
+    |> cast(attrs, [:quantity])
+    |> validate_required([:quantity])
+  end
+end

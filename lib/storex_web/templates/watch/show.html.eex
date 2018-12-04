@@ -1,0 +1,6 @@
+
+<div style="margin: auto; width: 75%; padding-top: 7%">
+<video width="90%" height="90%" controls controlsList="nodownload" webkitallowfullscreen mozallowfullscreen allowfullscreen poster="">
+    <source src=<%= @video.s3_url %> type="video/mp4">
+</video>
+</div>

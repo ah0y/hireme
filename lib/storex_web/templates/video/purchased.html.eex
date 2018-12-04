@@ -1,0 +1,26 @@
+<section class="video-list">
+  <ul class="grid">
+    <%= for video <- Enum.map(@videos, fn {video, order, time} -> {video, order, time} end) do %>
+      <li class="grid-item">
+        <div class="video video-small">
+         <p class="video__title rental_time"><%= NaiveDateTime.to_string(NaiveDateTime.add(elem(video, 1), elem(video, 2) * 86400, :seconds)) <> " UTC" %></p>
+          <%= link to: watch_path(@conn, :show, elem(video, 0).id) do %>
+            <video class="preview" width="90%" height="90%"  controlsList="nodownload" muted webkitallowfullscreen mozallowfullscreen allowfullscreen poster="">
+                <source src=<%= elem(video, 0).s3_url %> type="video/mp4">
+            </video>
+            <h3 class="video__title"><%= elem(video, 0).title %></h3>
+
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+
+
+
+</section>
+
+
+
+

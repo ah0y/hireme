@@ -1,0 +1,24 @@
+<h1><%= @video.title %></h1>
+
+<div class="video">
+  <video width="200" height="200" controlsList="nodownload">
+    <source src=<%= @video.s3_url %>#t=0.1" type="video/mp4">
+  </video>
+
+  <p class="video__description">
+    <%= @video.description %>
+  </p>
+</div>
+
+<div class="value-tag" >
+  <h2 class="value-tag__title">price</h2>
+  <span class="value-tag__content"><%= format_price(@video.price) %></span>
+</div>
+
+
+<%= link "Add to cart", to: cart_path(@conn, :create, video_id: @video.id), method: :create, class: "button button-primary" %>
+
+<%= if @is_admin do %>
+  <%= link "Edit", to: video_path(@conn, :edit, @video), class: "button" %>
+  <%= link "Delete", to: video_path(@conn, :delete, @video), method: :delete, data: [confirm: "Are you sure?"], class: "button button-danger" %>
+<% end %>
