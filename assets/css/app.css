@@ -394,6 +394,8 @@ a.button, a.button:hover {
   background: #F6EAEB;
   width: 100%;
   height: 100%;
+    padding-left: 1.5px;
+    padding-right: 1.5px;
 }
 
 .step.plus a {
@@ -498,6 +500,8 @@ btn.hidden {
 #video_video_file {
     width: 250px
 }
+
+
 
 
 #rummage_search_title_search_term {
